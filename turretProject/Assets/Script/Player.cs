@@ -1,8 +1,11 @@
-using Unity.Mathematics;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private float nextFireTime = 0f; // Изначально 0 — значит, можно стрелять сразу
+    public float fireRate = 0.5f; // Выстрел каждые 0.5 секунды
+
     public Transform turretTransform; // Башня танка
     public float rotationSpeed = 5f;  // Скорость поворота (настраивается в Inspector)
 
@@ -10,7 +13,7 @@ public class Player : MonoBehaviour
     private Animator anim;
 
     public Transform spawnBulletPos;
-    public GameObject bullet;
+    public GameObject bulletPrefab;
 
     private void Start()
     {
@@ -57,8 +60,28 @@ public class Player : MonoBehaviour
 
     private void shoot()
     {
+        if(Time.time < nextFireTime) return;
+        nextFireTime = Time.time + fireRate;
+
         anim.SetTrigger("shoot");
 
-        Instantiate(bullet, spawnBulletPos.position, turretTransform.rotation);
+        if (bulletPrefab != null && spawnBulletPos != null)
+        {
+            // Создаём пулю в точке спавна
+            GameObject bullet = Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("enemy"))
+        {
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
     }
 }
