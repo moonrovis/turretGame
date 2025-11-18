@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
                 float smoothAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime * 360f);
 
                 // Применяем только поворот по Y, сохраняя другие оси
-                turretTransform.rotation = Quaternion.Euler(-90f, smoothAngle, 0f);
+                turretTransform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
             }
         }
 

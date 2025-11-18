@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float speed = 30f;
+    private float speed = 50f;
 
     private float timer;
 
