@@ -8,9 +8,14 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * -speed * Time.deltaTime);
 
         timer += Time.deltaTime;
         if(timer >= 7f) Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("enemy")) Destroy(gameObject);
     }
 }

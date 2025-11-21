@@ -1,74 +1,71 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float nextFireTime = 0f; // Изначально 0 — значит, можно стрелять сразу
-    public float fireRate = 0.5f; // Выстрел каждые 0.5 секунды
-
-    public Transform turretTransform; // Башня танка
-    public float rotationSpeed = 5f;  // Скорость поворота (настраивается в Inspector)
-
-    private Rigidbody rb;
-    private Animator anim;
-
+    public Transform turretTransform;
     public Transform spawnBulletPos;
     public GameObject bulletPrefab;
+    public float fireRate = 0.5f;
+    public float rotationSpeed = 5f;
+    public float turretAngleOffset = 0f;
+
+    private float nextFireTime = 0f;
+    private Animator anim;
+
+    public float health;
+
+    public bool isDamaged = false;
+
+    public ParticleSystem shootVFX;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (!turretTransform)
-            return;
-        
-        Vector3 mousePosition = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
-        float distance;
-
-        if (groundPlane.Raycast(ray, out distance))
+        if (turretTransform != null)
         {
-            Vector3 targetPoint = ray.GetPoint(distance);
-            Vector3 direction = targetPoint - turretTransform.position;
-            direction.y = 0; // Только горизонтальное направление
-
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                // Желаемый поворот вокруг оси Y
-                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-                float targetAngle = targetRotation.eulerAngles.y;
-
-                // Плавно интерполируем угол по оси Y
-                float currentAngle = turretTransform.eulerAngles.y;
-                float smoothAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime * 360f);
-
-                // Применяем только поворот по Y, сохраняя другие оси
-                turretTransform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
-            }
+            RotateTurret();
         }
 
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
         {
-            shoot();
+            Shoot();
         }
     }
 
-    private void shoot()
+    private void RotateTurret()
     {
-        if(Time.time < nextFireTime) return;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, transform.position);
+        
+        if (groundPlane.Raycast(ray, out float distance))
+        {
+            Vector3 direction = ray.GetPoint(distance) - turretTransform.position;
+            direction.y = 0;
+            
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                float targetAngle = Quaternion.LookRotation(direction).eulerAngles.y + turretAngleOffset;
+                float smoothAngle = Mathf.MoveTowardsAngle(turretTransform.eulerAngles.y, targetAngle, rotationSpeed * 360f * Time.deltaTime);
+                turretTransform.rotation = Quaternion.Euler(-90f, smoothAngle, 0f);
+            }
+        }
+    }
+
+    private void Shoot()
+    {
+        shootVFX.Play();
+        if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + fireRate;
 
         anim.SetTrigger("shoot");
-
+        
         if (bulletPrefab != null && spawnBulletPos != null)
         {
-            // Создаём пулю в точке спавна
-            GameObject bullet = Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
+            Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
         }
     }
 
@@ -76,8 +73,15 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("enemy"))
         {
-            Death();
+            TakeDamage();
         }
+    }
+
+    private void TakeDamage()
+    {
+        health -= 25;
+        isDamaged = true;
+        if(health <= 0) Death();
     }
 
     private void Death()
