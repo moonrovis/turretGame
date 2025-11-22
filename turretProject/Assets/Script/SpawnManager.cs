@@ -4,11 +4,14 @@ using System.Collections;
 public class SpawnManager : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    public GameObject rocketPrefab; // Префаб ракеты
+    public GameObject[] rocketPrefab; // Префаб ракеты
     public Transform turret; // Ссылка на турель
     public float spawnRadius = 10f; // Радиус окружности спавна
     public float minSpawnInterval = 1f; // Минимальный интервал спавна
     public float maxSpawnInterval = 3f; // Максимальный интервал спавна
+
+    public GameObject health;
+    public float healthSpawnInterval;
     
     [Header("Spawn Area")]
     [Range(0f, 360f)]
@@ -16,8 +19,14 @@ public class SpawnManager : MonoBehaviour
     
     private bool isSpawning = true;
 
+    private Camera mainCamera;
+
+    private Player playerScript;
+
     void Start()
     {
+        mainCamera = Camera.main;
+
         if (rocketPrefab == null)
         {
             Debug.LogError("Rocket Prefab не назначен в SpawnManager!");
@@ -31,7 +40,10 @@ public class SpawnManager : MonoBehaviour
             Debug.LogWarning("Turret не назначен, используется позиция SpawnManager");
         }
         
+        playerScript = FindAnyObjectByType<Player>();
+
         StartCoroutine(SpawnRockets());
+        StartCoroutine(SpawnHealth()); // Добавляем спавн аптечки
     }
 
     IEnumerator SpawnRockets()
@@ -49,16 +61,26 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnRocket()
     {
-        // Вычисляем случайную позицию на окружности
-        Vector3 spawnPosition = GetRandomSpawnPosition();
-        
-        // Создаем ракету
-        GameObject rocket = Instantiate(rocketPrefab, spawnPosition, Quaternion.identity);
-        
-        // Направляем ракету на турель (опционально)
-        if (turret != null)
-        {
-            rocket.transform.LookAt(turret.position);
+        if (playerScript.isAlive)
+        {           
+            // Вычисляем случайную позицию на окружности
+            Vector3 spawnPosition = GetRandomSpawnPosition();
+            
+            // Создаем ракету
+            GameObject rocket = Instantiate(rocketPrefab[Random.Range(0, rocketPrefab.Length)], spawnPosition, Quaternion.identity);
+            
+            // Направляем ракету на турель (опционально)
+            if (turret != null)
+            {
+                rocket.transform.LookAt(turret.position);
+            }
+
+            minSpawnInterval -= 0.05f;
+            maxSpawnInterval -= 0.05f; 
+            if(minSpawnInterval <= 0.5f) minSpawnInterval = 0.5f;
+            if(maxSpawnInterval <= 1.5f) maxSpawnInterval = 1.5f;
+            Debug.Log(minSpawnInterval);
+            Debug.Log(maxSpawnInterval);
         }
     }
 
@@ -152,4 +174,40 @@ public class SpawnManager : MonoBehaviour
         minSpawnInterval = min;
         maxSpawnInterval = max;
     }
+
+    IEnumerator SpawnHealth()
+        {
+            while (isSpawning)
+            {
+                yield return new WaitForSeconds(healthSpawnInterval);
+
+                if (!playerScript.isAlive) continue;
+
+                SpawnHealthPack();
+            }
+        }
+
+    Vector3 GetGroundPositionInViewport(float viewportX, float viewportY)
+    {
+        // Точка в пространстве камеры
+        Vector3 viewportPoint = new Vector3(viewportX, viewportY, 10f);
+        Vector3 worldPoint = mainCamera.ViewportToWorldPoint(viewportPoint);
+        return new Vector3(worldPoint.x, 1.6f, worldPoint.z);
+    }
+
+    void SpawnHealthPack()
+    {
+        if (health == null)
+        {
+            Debug.LogError("Health Prefab не назначен!");
+            return;
+        }
+
+        Vector3 spawnPosition = GetGroundPositionInViewport(
+            Random.Range(0.1f, 0.9f),
+            Random.Range(0.2f, 0.8f)
+        );
+
+        Instantiate(health, spawnPosition, Quaternion.identity);
+    }     
 }

@@ -5,8 +5,8 @@ public class bar : MonoBehaviour
 {
     private Player playerScript;
 
-    private Image healthImg;
-    public float healhBar;
+    public Image healthImg;
+    public float healthBar;
 
     private GameManager gameManagerScript;
 
@@ -16,20 +16,5 @@ public class bar : MonoBehaviour
         gameManagerScript = FindAnyObjectByType<GameManager>();
         healthImg = GetComponent<Image>();
         playerScript = FindAnyObjectByType<Player>();
-
-
-    }
-
-    private void Update()
-    {
-        if (!gameManagerScript.isPause)
-        {            
-            if (playerScript.isDamaged)
-            {
-                healhBar -= 0.25f;
-                healthImg.fillAmount = healhBar;       
-                playerScript.isDamaged = false;
-            }
-        }
     }
 }

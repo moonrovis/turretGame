@@ -2,38 +2,47 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float speed = 4;
+    public float speed;
     private float rotationSpeed = 360;
 
     private CapsuleCollider cap;
+    private Player playerScript;
 
     public ParticleSystem explosionVFX;
     public ParticleSystem fireEngine;
 
     public GameObject rocket;
-
+    
     private void Start()
     {
         cap = GetComponent<CapsuleCollider>();
+        playerScript = FindAnyObjectByType<Player>();
     }
 
     private void Update()
     {
-        transform.Rotate(new Vector3(0, 0, rotationSpeed) * Time.deltaTime);
+        if (playerScript.isAlive)
+        {
+            transform.Rotate(new Vector3(0, 0, rotationSpeed) * Time.deltaTime);
 
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+        else
+        {
+            speed = 0f;
+            rotationSpeed = 0f;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("bullet") || other.CompareTag("Player"))
         {
-            Explode();
+            Exploide();
         }
-      
     }
 
-    private void Explode()
+    private void Exploide()
     {
         fireEngine.Stop();
         explosionVFX.Play();

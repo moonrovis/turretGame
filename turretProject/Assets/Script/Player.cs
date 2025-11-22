@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,27 +13,39 @@ public class Player : MonoBehaviour
     private float nextFireTime = 0f;
     private Animator anim;
 
-    public float health;
+    public ParticleSystem shootVFX;
+    public ParticleSystem explosionVFX;
 
+    private Camera mainCam;
+    public Animator cameraAnim;
+
+    public bool isAlive = true;
     public bool isDamaged = false;
 
-    public ParticleSystem shootVFX;
+    private bar barScript;
 
     private void Start()
     {
+        Camera mainCam = Camera.main;
+        cameraAnim = mainCam.GetComponent<Animator>();
+
         anim = GetComponent<Animator>();
+        barScript = FindAnyObjectByType<bar>();
     }
 
     private void Update()
     {
-        if (turretTransform != null)
-        {
-            RotateTurret();
-        }
+        if (isAlive)
+        {   
+            if (turretTransform != null)
+            {
+                RotateTurret();
+            }
 
-        if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
-        {
-            Shoot();
+            if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
+            {
+                Shoot();
+            }
         }
     }
 
@@ -61,6 +74,8 @@ public class Player : MonoBehaviour
         if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + fireRate;
 
+        cameraAnim.SetTrigger("shoot");
+
         anim.SetTrigger("shoot");
         
         if (bulletPrefab != null && spawnBulletPos != null)
@@ -79,13 +94,25 @@ public class Player : MonoBehaviour
 
     private void TakeDamage()
     {
-        health -= 25;
         isDamaged = true;
-        if(health <= 0) Death();
+        barScript.healthBar -= 0.25f;
+        barScript.healthImg.fillAmount = barScript.healthBar;   
+        Invoke(nameof(ResetDamageFlag), 1f);
+        if(barScript.healthBar <= 0) Death();   
+        cameraAnim.SetTrigger("death"); 
+
     }
 
     private void Death()
     {
-        Destroy(gameObject);
+        isAlive = false;
+        anim.SetTrigger("death");
+        explosionVFX.Play();
+        cameraAnim.SetTrigger("death");
+    }
+
+    private void ResetDamageFlag()
+    {
+        isDamaged = false;
     }
 }
