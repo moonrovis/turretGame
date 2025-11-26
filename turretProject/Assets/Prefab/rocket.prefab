@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43121d5f013cbea4f84b975686d14fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 3
+  speed: 4
+  rotationSpeed: 270
   explosionVFX: {fileID: 2410294910586141174}
   fireEngine: {fileID: 1624314843705990363}
   rocket: {fileID: 8744705156471785550}

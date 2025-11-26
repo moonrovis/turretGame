@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed;
-    private float rotationSpeed = 360;
+    public float rotationSpeed;
 
     private CapsuleCollider cap;
     private Player playerScript;

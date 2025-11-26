@@ -7,6 +7,8 @@ TagManager:
   - bullet
   - enemy
   - health
+  - bomb
+  - gunSpeed
   layers:
   - Default
   - TransparentFX

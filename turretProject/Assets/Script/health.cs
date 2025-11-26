@@ -2,24 +2,21 @@ using UnityEngine;
 
 public class health : MonoBehaviour
 {
+    public static event System.Action OnHealthIncreased; // Статическое событие
+
     private Animator anim;
     public GameObject obj;
-
     private float rotationSpeed = 180f;
-
     public ParticleSystem explosionVFX;
-
-    private Player playerScript;
+    private BoxCollider bc;
     private bar barScript;
-
     public bool healthInc = false;
-
 
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
-        playerScript = FindAnyObjectByType<Player>();
         barScript = FindAnyObjectByType<bar>();
+        bc = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -31,14 +28,24 @@ public class health : MonoBehaviour
     {
         if (other.CompareTag("bullet"))
         {
-            healthInc = true;
-            Invoke(nameof(resetBool), 0.5f);
+            if (barScript.healthBar < 1f)
+            {
+                barScript.healthBar = Mathf.Min(1f, barScript.healthBar + 0.25f);
+                barScript.healthImg.fillAmount = barScript.healthBar;
+
+                healthInc = true;
+                OnHealthIncreased?.Invoke(); // Уведомляем, что здоровье увеличилось
+                Invoke(nameof(resetBool), 1f);
+            }
+            else
+            {
+                barScript.healthBar = 1f;
+            }
+
             obj.SetActive(false);
             explosionVFX.Play();
+            bc.enabled = false;
             Destroy(gameObject, 1f);
-            barScript.healthBar += 0.25f;
-            if(barScript.healthBar >= 1) barScript.healthBar = 1;
-            barScript.healthImg.fillAmount = barScript.healthBar;
         }
     }
 

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     public bool isAlive = true;
     public bool isDamaged = false;
+    public bool isDamagedBomb = false;
 
     private bar barScript;
 
@@ -90,6 +91,10 @@ public class Player : MonoBehaviour
         {
             TakeDamage();
         }
+        if (other.CompareTag("bomb"))
+        {
+            TakeDamageBomb();
+        }
     }
 
     private void TakeDamage()
@@ -100,7 +105,16 @@ public class Player : MonoBehaviour
         Invoke(nameof(ResetDamageFlag), 1f);
         if(barScript.healthBar <= 0) Death();   
         cameraAnim.SetTrigger("death"); 
+    }
 
+    private void TakeDamageBomb()
+    {
+        isDamagedBomb = true;
+        barScript.healthBar -= 0.5f;
+        barScript.healthImg.fillAmount = barScript.healthBar;   
+        Invoke(nameof(ResetDamageFlag), 1f);
+        if(barScript.healthBar <= 0) Death();   
+        cameraAnim.SetTrigger("death"); 
     }
 
     private void Death()
