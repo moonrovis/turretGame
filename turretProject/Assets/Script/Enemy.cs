@@ -44,10 +44,10 @@ public class Enemy : MonoBehaviour
 
     private void Exploide()
     {
+        cap.enabled = false;
         fireEngine.Stop();
         explosionVFX.Play();
         rocket.SetActive(false);
         Destroy(gameObject, 1f);
-        cap.enabled = false;
     }
 } 

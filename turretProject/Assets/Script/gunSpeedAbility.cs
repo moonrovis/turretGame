@@ -7,14 +7,12 @@ private Animator anim;
     private float rotationSpeed = 180f;
     public ParticleSystem explosionVFX;
     private BoxCollider bc;
-
-    private Player playerScript;
-
     public bool gunSpeedUp;
+
+    private float timer = 0f;
 
     private void Start()
     {
-        playerScript = FindAnyObjectByType<Player>();
         anim = GetComponentInChildren<Animator>();
         bc = GetComponent<BoxCollider>();
     }
@@ -33,13 +31,12 @@ private Animator anim;
             bc.enabled = false;
             Destroy(gameObject, 1f);
             gunSpeedUp = true;
-            playerScript.fireRate = 0.25f;
-            Invoke(nameof(gunSpeedOf), 10f);
-        }
-    }
 
-    private void gunSpeedOf()
-    {
-        playerScript.fireRate = 0.5f;
+            Player player = FindAnyObjectByType<Player>();
+            if(player != null)
+            {
+                player.GunSpeed();
+            }
+        }
     }
 }

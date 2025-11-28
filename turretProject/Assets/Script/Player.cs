@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -22,8 +23,14 @@ public class Player : MonoBehaviour
     public bool isAlive = true;
     public bool isDamaged = false;
     public bool isDamagedBomb = false;
+    public bool isGunSpeedActive = false;
 
     private bar barScript;
+    private gunSpeedAbility gunSpeedScript;
+
+    private float timer = 11f;
+    public GameObject abCanvas;
+    public TextMeshProUGUI abTimer;
 
     private void Start()
     {
@@ -32,6 +39,7 @@ public class Player : MonoBehaviour
 
         anim = GetComponent<Animator>();
         barScript = FindAnyObjectByType<bar>();
+        gunSpeedScript = FindAnyObjectByType<gunSpeedAbility>();
     }
 
     private void Update()
@@ -47,6 +55,14 @@ public class Player : MonoBehaviour
             {
                 Shoot();
             }
+        }
+
+        if (isGunSpeedActive)
+        {
+            abCanvas.SetActive(true);
+            timer -= Time.deltaTime;
+            int secondsLeft = Mathf.Max(Mathf.FloorToInt(timer), 0);
+            abTimer.text = secondsLeft.ToString();
         }
     }
 
@@ -83,6 +99,23 @@ public class Player : MonoBehaviour
         {
             Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
         }
+    }
+
+    public void GunSpeed()
+    {
+        fireRate = 0.25f;
+        isGunSpeedActive = true;
+
+        CancelInvoke(nameof(DeactivateGunSpeed));
+        Invoke(nameof(DeactivateGunSpeed), 10f);
+
+    }
+    private void DeactivateGunSpeed()
+    {
+        fireRate = 0.5f;
+        isGunSpeedActive = false;
+        abCanvas.SetActive(false);
+        timer = 11f;
     }
 
     private void OnTriggerEnter(Collider other)
