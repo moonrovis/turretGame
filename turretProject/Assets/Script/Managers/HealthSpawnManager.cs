@@ -6,17 +6,24 @@ public class HealthSpawnManager : MonoBehaviour
 
     public GameObject[] abilities;
 
+    private Player playerScript;
+
     public float spawnInterval;
 
     private void Start()
     {
+        playerScript = FindAnyObjectByType<Player>();
+
         InvokeRepeating("SpawnAbility", 30f, spawnInterval);
     }
 
     private void SpawnAbility()
     {
-        Transform spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)];
+        if (playerScript.isAlive)
+        {         
+            Transform spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)];
 
-        Instantiate(abilities[Random.Range(0, abilities.Length)], spawnPosition.position, Quaternion.identity);
+            Instantiate(abilities[Random.Range(0, abilities.Length)], spawnPosition.position, Quaternion.identity);
+        }
     }
 }

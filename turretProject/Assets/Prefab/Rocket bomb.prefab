@@ -55,8 +55,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.71
-  m_Height: 1.8645536
+  m_Radius: 1.17
+  m_Height: 3.14
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.20727676}
 --- !u!114 &6441827508979045830
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   speed: 3.5
-  rotationSpeed: 0
+  rotationSpeed: 180
   explosionVFX: {fileID: 2558489632428262425}
   fireEngine: {fileID: 4583108178823384678}
   rocket: {fileID: 34535256488136391}

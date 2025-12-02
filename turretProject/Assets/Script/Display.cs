@@ -23,14 +23,14 @@ public class Display : MonoBehaviour
         if (playerScript.isDamaged)
         {
             min25.SetActive(true);
-            Invoke(nameof(resetRed), 0.5f);
+            Invoke(nameof(resetRed), 1f);
             playerScript.isDamaged = false; // сброс флага, если нужно
         }
 
         if (playerScript.isDamagedBomb)
         {
             min50.SetActive(true);
-            Invoke(nameof(resetRed50), 0.5f);
+            Invoke(nameof(resetRed50), 1f);
             playerScript.isDamagedBomb = false; // сброс флага, если нужно
         }
     }
@@ -38,7 +38,7 @@ public class Display : MonoBehaviour
     private void ShowHealthIncrease()
     {
         plus25.SetActive(true);
-        Invoke(nameof(ResetInc), 0.5f);
+        Invoke(nameof(ResetInc), 1f);
     }
 
     private void resetRed()

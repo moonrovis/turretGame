@@ -3,12 +3,14 @@ using System.Collections;
 
 public class SpawnManager : MonoBehaviour
 {
+    private float currentSpeed = 2.5f;
+
     [Header("Spawn Settings")]
     public GameObject[] rocketPrefab; // Префаб ракеты
     public Transform turret; // Ссылка на турель
     public float spawnRadius = 10f; // Радиус окружности спавна
-    public float minSpawnInterval = 1f; // Минимальный интервал спавна
-    public float maxSpawnInterval = 3f; // Максимальный интервал спавна
+    private float minSpawnInterval = 1f; // Минимальный интервал спавна
+    private float maxSpawnInterval = 3f; // Максимальный интервал спавна
     
     [Header("Spawn Area")]
     [Range(0f, 360f)]
@@ -23,19 +25,6 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-
-        if (rocketPrefab == null)
-        {
-            Debug.LogError("Rocket Prefab не назначен в SpawnManager!");
-            return;
-        }
-        
-        if (turret == null)
-        {
-            // Если турель не назначена, используем текущую позицию
-            turret = transform;
-            Debug.LogWarning("Turret не назначен, используется позиция SpawnManager");
-        }
         
         playerScript = FindAnyObjectByType<Player>();
 
@@ -65,16 +54,20 @@ public class SpawnManager : MonoBehaviour
             // Создаем ракету
             GameObject rocket = Instantiate(rocketPrefab[Random.Range(0, rocketPrefab.Length)], spawnPosition, Quaternion.identity);
             
+            Enemy enemyScript = rocket.GetComponent<Enemy>();
+            enemyScript.speed = currentSpeed;
+            currentSpeed += 0.05f;
+
             // Направляем ракету на турель (опционально)
             if (turret != null)
             {
                 rocket.transform.LookAt(turret.position);
             }
 
-            minSpawnInterval -= 0.05f;
-            maxSpawnInterval -= 0.05f; 
-            if(minSpawnInterval <= 0.5f) minSpawnInterval = 0.5f;
-            if(maxSpawnInterval <= 0.75f) maxSpawnInterval = 0.75f;
+            minSpawnInterval -= 0.025f;
+            maxSpawnInterval -= 0.025f; 
+            if(minSpawnInterval <= 0.75f) minSpawnInterval = 0.75f;
+            if(maxSpawnInterval <= 1f) maxSpawnInterval = 1f;
             Debug.Log(minSpawnInterval);
             Debug.Log(maxSpawnInterval);
         }
