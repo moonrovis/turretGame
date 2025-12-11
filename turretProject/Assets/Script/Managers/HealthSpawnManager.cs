@@ -10,7 +10,7 @@ public class HealthSpawnManager : MonoBehaviour
 
     public float spawnInterval;
 
-    private void Start()
+    protected void Start()
     {
         playerScript = FindAnyObjectByType<Player>();
 

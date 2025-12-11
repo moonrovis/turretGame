@@ -34,7 +34,7 @@ public class health : MonoBehaviour
                 barScript.healthImg.fillAmount = barScript.healthBar;
 
                 healthInc = true;
-                OnHealthIncreased?.Invoke(); // Уведомляем, что здоровье увеличилось
+                OnHealthIncreased?.Invoke();
                 Invoke(nameof(resetBool), 1f);
             }
             else

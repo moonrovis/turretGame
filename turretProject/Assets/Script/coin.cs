@@ -1,20 +1,23 @@
 using UnityEngine;
 
-public class gunSpeedAbility : MonoBehaviour
+public class coin : MonoBehaviour
 {
+    private CoinManager coinScript;
+
     private Animator anim;
     public GameObject obj;
     private float rotationSpeed = 180f;
     public ParticleSystem explosionVFX;
-    private BoxCollider bc;
+    private SphereCollider bc;
     public bool gunSpeedUp;
 
     private float timer = 0f;
 
     private void Start()
     {
+        coinScript = FindAnyObjectByType<CoinManager>();
         anim = GetComponentInChildren<Animator>();
-        bc = GetComponent<BoxCollider>();
+        bc = GetComponent<SphereCollider>();
     }
 
     private void Update()
@@ -30,13 +33,7 @@ public class gunSpeedAbility : MonoBehaviour
             explosionVFX.Play();
             bc.enabled = false;
             Destroy(gameObject, 1f);
-            gunSpeedUp = true;
-
-            Player player = FindAnyObjectByType<Player>();
-            if(player != null)
-            {
-                player.GunSpeed();
-            }
+            coinScript.UpdateCoinText();
         }
     }
 }

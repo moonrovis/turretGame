@@ -20,11 +20,11 @@ public class ScoreManager : MonoBehaviour
     {
         if (playerScript.isAlive)
         {
-            score += Time.deltaTime; // Накапливаем время
-            int seconds = Mathf.FloorToInt(score); // Округляем вниз до целых секунд
-            T.text = seconds.ToString(); // Показываем целое число секунд
+            score += Time.deltaTime; 
+            int seconds = Mathf.FloorToInt(score);
+            T.text = seconds.ToString(); 
 
-            PlayerPrefs.SetInt("score", seconds); // Сохраняем результат
+            PlayerPrefs.SetInt("score", seconds); 
         }
     }
 }

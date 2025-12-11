@@ -1,15 +1,12 @@
 using UnityEngine;
 
-public class gunSpeedAbility : MonoBehaviour
+public class Collectables : MonoBehaviour
 {
     private Animator anim;
     public GameObject obj;
     private float rotationSpeed = 180f;
     public ParticleSystem explosionVFX;
     private BoxCollider bc;
-    public bool gunSpeedUp;
-
-    private float timer = 0f;
 
     private void Start()
     {
@@ -30,13 +27,7 @@ public class gunSpeedAbility : MonoBehaviour
             explosionVFX.Play();
             bc.enabled = false;
             Destroy(gameObject, 1f);
-            gunSpeedUp = true;
 
-            Player player = FindAnyObjectByType<Player>();
-            if(player != null)
-            {
-                player.GunSpeed();
-            }
         }
     }
 }
