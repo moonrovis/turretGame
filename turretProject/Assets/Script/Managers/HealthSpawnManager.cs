@@ -19,7 +19,7 @@ public class HealthSpawnManager : MonoBehaviour
 
     private void SpawnAbility()
     {
-        if (playerScript.isAlive)
+        if (playerScript.isAlive && !playerScript.isPause)
         {         
             Transform spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)];
 

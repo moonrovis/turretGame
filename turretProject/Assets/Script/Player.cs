@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public Animator cameraAnim;
 
     public bool isAlive = true;
+    public bool isPause = false;
     public bool isDamaged = false;
     public bool isDamagedBomb = false;
     public bool isGunSpeedActive = false;
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (isAlive)
+        if (isAlive && !isPause)
         {   
             if (turretTransform != null)
             {

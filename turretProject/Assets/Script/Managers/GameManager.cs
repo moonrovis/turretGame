@@ -6,9 +6,8 @@ public class GameManager : MonoBehaviour
 {
     private Player playerScript;
 
-    public bool isPause = false;
-
     public GameObject deathCanvas;
+    public GameObject pauseCanvas;
 
     void Start()
     {
@@ -24,13 +23,13 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isPause = true;
+            pause();   
         }
-
+        
         if (!playerScript.isAlive) deathCanvas.SetActive(true);
     }
 
-    public void playeGame()
+    public void playGame()
     {
         SceneManager.LoadScene("Game");
     }
@@ -43,5 +42,17 @@ public class GameManager : MonoBehaviour
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void pause()
+    {    
+        playerScript.isPause = true;
+        pauseCanvas.SetActive(true);
+    }
+
+    public void resume()
+    {
+        playerScript.isPause = false;
+        pauseCanvas.SetActive(false);
     }
 }

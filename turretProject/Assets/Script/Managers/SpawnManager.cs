@@ -46,7 +46,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnRocket()
     {
-        if (playerScript.isAlive)
+        if (playerScript.isAlive && !playerScript.isPause)
         {           
             // Вычисляем случайную позицию на окружности
             Vector3 spawnPosition = GetRandomSpawnPosition();
@@ -64,12 +64,10 @@ public class SpawnManager : MonoBehaviour
                 rocket.transform.LookAt(turret.position);
             }
 
-            minSpawnInterval -= 0.025f;
-            maxSpawnInterval -= 0.025f; 
+            minSpawnInterval -= 0.05f;
+            maxSpawnInterval -= 0.05f; 
             if(minSpawnInterval <= 0.75f) minSpawnInterval = 0.75f;
             if(maxSpawnInterval <= 1f) maxSpawnInterval = 1f;
-            Debug.Log(minSpawnInterval);
-            Debug.Log(maxSpawnInterval);
         }
     }
 

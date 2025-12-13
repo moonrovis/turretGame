@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (playerScript.isAlive)
+        if (playerScript.isAlive && !playerScript.isPause)
         {
             transform.Rotate(new Vector3(0, 0, rotationSpeed) * Time.deltaTime);
 
