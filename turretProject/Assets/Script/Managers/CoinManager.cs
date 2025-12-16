@@ -6,7 +6,7 @@ public class CoinManager : MonoBehaviour
 {
     public TextMeshProUGUI coinText;
 
-    private int coin = 0;
+    private int coin = 100;
 
     private void Start()
     {
@@ -20,5 +20,5 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("coin", coin);
         coinText.text = coin.ToString();
         Debug.Log(coin);
-    }
+    }      
 }
