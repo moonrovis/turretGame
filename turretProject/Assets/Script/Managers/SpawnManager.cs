@@ -21,9 +21,12 @@ public class SpawnManager : MonoBehaviour
     private Camera mainCamera;
 
     private Player playerScript;
+    private GameManager gameManagerScript;
+
 
     void Start()
     {
+        gameManagerScript = FindAnyObjectByType<GameManager>();
         mainCamera = Camera.main;
         
         playerScript = FindAnyObjectByType<Player>();
@@ -46,7 +49,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnRocket()
     {
-        if (playerScript.isAlive && !playerScript.isPause)
+        if (playerScript.isAlive && !gameManagerScript.isPause)
         {           
             // Вычисляем случайную позицию на окружности
             Vector3 spawnPosition = GetRandomSpawnPosition();

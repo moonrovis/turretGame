@@ -8,9 +8,12 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI bestScoreText;
     private float score;
     private int bestScore;
+    private GameManager gameManagerScript;
+
 
     private void Start()
     {
+        gameManagerScript = FindAnyObjectByType<GameManager>();
         playerScript = FindAnyObjectByType<Player>();
         bestScore = PlayerPrefs.GetInt("bestScore", 0);
         score = 0;
@@ -21,7 +24,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerScript.isAlive && !playerScript.isPause)
+        if (playerScript.isAlive && !gameManagerScript.isPause)
         {
             score += Time.deltaTime;
             int seconds = Mathf.FloorToInt(score);

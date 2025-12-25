@@ -10,8 +10,12 @@ public class HealthSpawnManager : MonoBehaviour
 
     public float spawnInterval;
 
+    private GameManager gameManagerScript;
+
     protected void Start()
     {
+        gameManagerScript = FindAnyObjectByType<GameManager>();
+
         playerScript = FindAnyObjectByType<Player>();
 
         InvokeRepeating("SpawnAbility", 30f, spawnInterval);
@@ -19,7 +23,7 @@ public class HealthSpawnManager : MonoBehaviour
 
     private void SpawnAbility()
     {
-        if (playerScript.isAlive && !playerScript.isPause)
+        if (playerScript.isAlive && !gameManagerScript.isPause)
         {         
             Transform spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)];
 

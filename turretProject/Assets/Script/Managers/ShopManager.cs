@@ -10,8 +10,12 @@ public class ShopManager : MonoBehaviour
     public TurretBlueprints[] turretModels;
     public Button buyButton;
 
+    private CoinManager coinScript;
+
     private void Start()
     {
+        coinScript = FindAnyObjectByType<CoinManager>();
+
         foreach(TurretBlueprints turrets in turretModels)
         {
             if(turrets.price == 0) turrets.isUnlocked = true;
@@ -23,6 +27,7 @@ public class ShopManager : MonoBehaviour
         foreach(GameObject turret in turretItems) turret.SetActive(false);
 
         turretItems[currentIndex].SetActive(true);
+        UpdateTurretUI();
     }
 
     private void Update()
@@ -40,10 +45,7 @@ public class ShopManager : MonoBehaviour
 
         turretItems[currentIndex].SetActive(true);
 
-        TurretBlueprints t = turretModels[currentIndex];
-        if(!t.isUnlocked) return;
-
-        PlayerPrefs.SetInt("SelectedTurret", currentIndex);
+        UpdateTurretUI();
     }
 
     public void changePrevious()
@@ -56,10 +58,7 @@ public class ShopManager : MonoBehaviour
 
         turretItems[currentIndex].SetActive(true);
 
-        TurretBlueprints t = turretModels[currentIndex];
-        if(!t.isUnlocked) return;
-
-        PlayerPrefs.SetInt("SelectedTurret", currentIndex);
+        UpdateTurretUI();
     }
 
     private void updateUI()
@@ -74,11 +73,11 @@ public class ShopManager : MonoBehaviour
             buyButton.gameObject.SetActive(true);
             if(t.price <= PlayerPrefs.GetInt("coin", 0))
             {
-                buyButton.interactable = false;
+                buyButton.interactable = true;
             }
             else
             {
-                buyButton.interactable = true;
+                buyButton.interactable = false;
             }
         }
     }
@@ -86,13 +85,40 @@ public class ShopManager : MonoBehaviour
     public void unclockTurret()
     {
         TurretBlueprints t = turretModels[currentIndex];
-        if(t.price <= PlayerPrefs.GetInt("coin", 0))
-        {       
+        int currentCoins = PlayerPrefs.GetInt("coin", 0);
+
+        if (t.price <= currentCoins)
+        {
             PlayerPrefs.SetInt(t.name, 1);
             PlayerPrefs.SetInt("SelectedTurret", currentIndex);
             t.isUnlocked = true;
-            PlayerPrefs.SetInt("coin", PlayerPrefs.GetInt("coin", 0) - t.price);
+
+            PlayerPrefs.SetInt("coin", currentCoins - t.price);
+            coinScript.UpdateShopCoinText(); // Теперь текст обновится
         }
+    }
+
+    private void UpdateTurretUI()
+    {
+        TurretBlueprints t = turretModels[currentIndex];
+
+        if (t.priceText != null)
+        {
+            t.priceText.text = t.price.ToString();
+        }
+
+        if (t.isUnlocked)
+        {
+            buyButton.gameObject.SetActive(false);
+            PlayerPrefs.SetInt("SelectedTurret", currentIndex);
+        }
+        else
+        {
+            buyButton.gameObject.SetActive(true);
+            buyButton.interactable = (t.price <= PlayerPrefs.GetInt("coin", 0));
+        }
+
+        coinScript.UpdateShopCoinText();
     }
 
     private void DeletePlayerPrefs()

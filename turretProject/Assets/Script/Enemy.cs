@@ -12,16 +12,19 @@ public class Enemy : MonoBehaviour
     public ParticleSystem fireEngine;
 
     public GameObject rocket;
+
+    private GameManager gameManagerScript;
     
     private void Start()
     {
         cap = GetComponent<CapsuleCollider>();
         playerScript = FindAnyObjectByType<Player>();
+        gameManagerScript = FindAnyObjectByType<GameManager>();
     }
 
     private void Update()
     {
-        if (playerScript.isAlive && !playerScript.isPause)
+        if (playerScript.isAlive && !gameManagerScript.isPause)
         {
             transform.Rotate(new Vector3(0, 0, rotationSpeed) * Time.deltaTime);
 

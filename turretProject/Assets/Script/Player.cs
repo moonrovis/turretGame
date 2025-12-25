@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float fireRate = 0.5f;
     public float rotationSpeed = 5f;
     public float turretAngleOffset = 0f;
+    public float turretRotatorOffset;
 
     private float nextFireTime = 0f;
     private Animator anim;
@@ -21,13 +22,13 @@ public class Player : MonoBehaviour
     public Animator cameraAnim;
 
     public bool isAlive = true;
-    public bool isPause = false;
     public bool isDamaged = false;
     public bool isDamagedBomb = false;
     public bool isGunSpeedActive = false;
 
     private bar barScript;
     private gunSpeedAbility gunSpeedScript;
+    private GameManager gameManagerScript;
 
     private float timer = 11f;
     public GameObject abCanvas;
@@ -41,11 +42,12 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         barScript = FindAnyObjectByType<bar>();
         gunSpeedScript = FindAnyObjectByType<gunSpeedAbility>();
+        gameManagerScript = FindAnyObjectByType<GameManager>();
     }
 
     private void Update()
     {
-        if (isAlive && !isPause)
+        if (isAlive && !gameManagerScript.isPause)
         {   
             if (turretTransform != null)
             {
@@ -81,7 +83,7 @@ public class Player : MonoBehaviour
             {
                 float targetAngle = Quaternion.LookRotation(direction).eulerAngles.y + turretAngleOffset;
                 float smoothAngle = Mathf.MoveTowardsAngle(turretTransform.eulerAngles.y, targetAngle, rotationSpeed * 360f * Time.deltaTime);
-                turretTransform.rotation = Quaternion.Euler(-90f, smoothAngle, 0f);
+                turretTransform.rotation = Quaternion.Euler(turretRotatorOffset, smoothAngle, 0f);
             }
         }
     }
@@ -157,6 +159,7 @@ public class Player : MonoBehaviour
         anim.SetTrigger("death");
         explosionVFX.Play();
         cameraAnim.SetTrigger("death");
+        gameManagerScript.OnPlayerDeath();
     }
 
     private void ResetDamageFlag()

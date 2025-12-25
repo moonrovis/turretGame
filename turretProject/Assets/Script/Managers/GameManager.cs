@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject deathCanvas;
     public GameObject pauseCanvas;
 
+    public bool isPause = false;
+
     void Start()
     {
         playerScript = FindAnyObjectByType<Player>();
@@ -32,8 +34,6 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("coin", 100);
             PlayerPrefs.Save();
         }
-
-        if (!playerScript.isAlive) deathCanvas.SetActive(true);
     }
 
     public void playGame()
@@ -53,13 +53,18 @@ public class GameManager : MonoBehaviour
 
     public void pause()
     {    
-        playerScript.isPause = true;
+        isPause = true;
         pauseCanvas.SetActive(true);
     }
 
     public void resume()
     {
-        playerScript.isPause = false;
+        isPause = false;
         pauseCanvas.SetActive(false);
+    }
+
+    public void OnPlayerDeath()
+    {
+        deathCanvas.SetActive(true);
     }
 }
