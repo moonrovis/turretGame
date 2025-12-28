@@ -115,7 +115,6 @@ public class ShopManager : MonoBehaviour
         else
         {
             buyButton.gameObject.SetActive(true);
-            buyButton.interactable = (t.price <= PlayerPrefs.GetInt("coin", 0));
         }
 
         coinScript.UpdateShopCoinText();

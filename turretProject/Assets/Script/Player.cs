@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private bar barScript;
     private gunSpeedAbility gunSpeedScript;
     private GameManager gameManagerScript;
+    private AmmoManager ammoScript;
 
     private float timer = 11f;
     public GameObject abCanvas;
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
         barScript = FindAnyObjectByType<bar>();
         gunSpeedScript = FindAnyObjectByType<gunSpeedAbility>();
         gameManagerScript = FindAnyObjectByType<GameManager>();
+        ammoScript = FindAnyObjectByType<AmmoManager>();
     }
 
     private void Update()
@@ -56,7 +58,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
             {
-                Shoot();
+                if(ammoScript.ammoCount > 0) Shoot();     
             }
         }
 
@@ -101,6 +103,7 @@ public class Player : MonoBehaviour
         if (bulletPrefab != null && spawnBulletPos != null)
         {
             Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
+            ammoScript.ReduceAmmo();
         }
     }
 

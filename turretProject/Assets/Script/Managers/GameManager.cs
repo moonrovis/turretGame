@@ -27,13 +27,6 @@ public class GameManager : MonoBehaviour
         {
             pause();   
         }
-        
-        if (Input.GetKeyDown(KeyCode.P))
-        { 
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.SetInt("coin", 100);
-            PlayerPrefs.Save();
-        }
     }
 
     public void playGame()
