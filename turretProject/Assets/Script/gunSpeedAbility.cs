@@ -11,8 +11,12 @@ public class gunSpeedAbility : MonoBehaviour
 
     private float timer = 0f;
 
+    private AudioSource audioSource;
+    public AudioClip pickUp;
+
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         bc = GetComponent<BoxCollider>();
     }
@@ -26,6 +30,7 @@ public class gunSpeedAbility : MonoBehaviour
     {
         if (other.CompareTag("bullet"))
         {
+            audioSource.PlayOneShot(pickUp, 1f);
             obj.SetActive(false);
             explosionVFX.Play();
             bc.enabled = false;

@@ -11,6 +11,9 @@ public class coin : MonoBehaviour
     private SphereCollider bc;
     public bool gunSpeedUp;
 
+    private AudioSource audioSource;
+    public AudioClip coinSound;
+
     private float timer = 0f;
 
     private void Start()
@@ -18,6 +21,8 @@ public class coin : MonoBehaviour
         coinScript = FindAnyObjectByType<CoinManager>();
         anim = GetComponentInChildren<Animator>();
         bc = GetComponent<SphereCollider>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -29,6 +34,7 @@ public class coin : MonoBehaviour
     {
         if (other.CompareTag("bullet"))
         {
+            audioSource.PlayOneShot(coinSound, 1f);
             obj.SetActive(false);
             explosionVFX.Play();
             bc.enabled = false;

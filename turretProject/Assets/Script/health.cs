@@ -12,11 +12,15 @@ public class health : MonoBehaviour
     private bar barScript;
     public bool healthInc = false;
 
+    private AudioSource audioSource;
+    public AudioClip healthSound;
+
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
         barScript = FindAnyObjectByType<bar>();
         bc = GetComponent<BoxCollider>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -28,6 +32,7 @@ public class health : MonoBehaviour
     {
         if (other.CompareTag("bullet"))
         {
+            audioSource.PlayOneShot(healthSound, 1f);
             if (barScript.healthBar < 1f)
             {
                 barScript.healthBar = Mathf.Min(1f, barScript.healthBar + 0.25f);

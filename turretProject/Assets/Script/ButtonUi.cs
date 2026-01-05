@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class ButtonUi : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private AudioSource audioSource;
+    public AudioClip buySound;
+
+    private void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Click()
     {
-        
+        audioSource.PlayOneShot(buySound);
     }
 }

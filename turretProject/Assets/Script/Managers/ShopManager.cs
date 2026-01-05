@@ -12,8 +12,11 @@ public class ShopManager : MonoBehaviour
 
     private CoinManager coinScript;
 
+    private ButtonUi buttonScript;
+
     private void Start()
     {
+        buttonScript = FindAnyObjectByType<ButtonUi>();
         coinScript = FindAnyObjectByType<CoinManager>();
 
         foreach(TurretBlueprints turrets in turretModels)
@@ -84,6 +87,7 @@ public class ShopManager : MonoBehaviour
 
     public void unclockTurret()
     {
+        buttonScript.Click();
         TurretBlueprints t = turretModels[currentIndex];
         int currentCoins = PlayerPrefs.GetInt("coin", 0);
 
