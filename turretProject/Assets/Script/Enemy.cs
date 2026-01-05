@@ -14,12 +14,16 @@ public class Enemy : MonoBehaviour
     public GameObject rocket;
 
     private GameManager gameManagerScript;
+
+    private AudioSource audioSource;
+    public AudioClip[] explosionSound;
     
     private void Start()
     {
         cap = GetComponent<CapsuleCollider>();
         playerScript = FindAnyObjectByType<Player>();
         gameManagerScript = FindAnyObjectByType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -30,7 +34,7 @@ public class Enemy : MonoBehaviour
 
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
-        else
+        else if(!playerScript.isAlive && gameManagerScript.isPause)
         {
             speed = 0f;
             rotationSpeed = 0f;
@@ -41,6 +45,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("bullet") || other.CompareTag("Player"))
         {
+            audioSource.PlayOneShot(explosionSound[Random.Range(0, explosionSound.Length)],1f);
             Exploide();
         }
     }

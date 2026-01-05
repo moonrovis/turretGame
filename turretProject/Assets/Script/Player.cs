@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     private gunSpeedAbility gunSpeedScript;
     private GameManager gameManagerScript;
     private AmmoManager ammoScript;
+    private AudioSource audioSource;
+    public AudioClip shootSound;
+    public AudioClip emptyAmmoSound;
 
     private float timer = 11f;
     public GameObject abCanvas;
@@ -45,6 +48,7 @@ public class Player : MonoBehaviour
         gunSpeedScript = FindAnyObjectByType<gunSpeedAbility>();
         gameManagerScript = FindAnyObjectByType<GameManager>();
         ammoScript = FindAnyObjectByType<AmmoManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -58,7 +62,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
             {
-                if(ammoScript.ammoCount > 0) Shoot();     
+                Shoot(); 
             }
         }
 
@@ -81,29 +85,36 @@ public class Player : MonoBehaviour
             Vector3 direction = ray.GetPoint(distance) - turretTransform.position;
             direction.y = 0;
             
-            if (direction.sqrMagnitude > 0.01f)
+            if (direction.sqrMagnitude > 0.1f)
             {
                 float targetAngle = Quaternion.LookRotation(direction).eulerAngles.y + turretAngleOffset;
                 float smoothAngle = Mathf.MoveTowardsAngle(turretTransform.eulerAngles.y, targetAngle, rotationSpeed * 360f * Time.deltaTime);
-                turretTransform.rotation = Quaternion.Euler(turretRotatorOffset, smoothAngle, 0f);
+                turretTransform.rotation = Quaternion.Euler(turretRotatorOffset, smoothAngle, 0f);                
             }
         }
     }
 
     private void Shoot()
     {
-        shootVFX.Play();
         if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + fireRate;
 
         cameraAnim.SetTrigger("shoot");
 
-        anim.SetTrigger("shoot");
         
         if (bulletPrefab != null && spawnBulletPos != null)
         {
-            Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
-            ammoScript.ReduceAmmo();
+            if(ammoScript.ammoCount > 0)
+            {               
+                anim.SetTrigger("shoot");
+                shootVFX.Play();
+                Instantiate(bulletPrefab, spawnBulletPos.position, spawnBulletPos.rotation);
+                ammoScript.ReduceAmmo();
+                float[] pitches = {0.9f, 1f, 1.1f};
+                audioSource.pitch = pitches[Random.Range(0, pitches.Length)];
+                audioSource.PlayOneShot(shootSound, 1f);
+            }
+            else audioSource.PlayOneShot(emptyAmmoSound, 1f);
         }
     }
 

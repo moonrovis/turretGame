@@ -11,7 +11,6 @@ public class Display : MonoBehaviour
 
     private void Start()
     {
-        playerScript = FindAnyObjectByType<Player>();
         anim = GetComponentInChildren<Animator>();
 
         // Подписываемся на событие
@@ -20,6 +19,7 @@ public class Display : MonoBehaviour
 
     private void Update()
     {
+        playerScript = FindAnyObjectByType<Player>();
         if (playerScript.isDamaged)
         {
             min25.SetActive(true);
