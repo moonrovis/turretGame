@@ -149,6 +149,7 @@ public class Player : MonoBehaviour
 
     private void TakeDamage()
     {
+        explosionVFX.Play();
         isDamaged = true;
         barScript.healthBar -= 0.25f;
         barScript.healthImg.fillAmount = barScript.healthBar;   
@@ -159,6 +160,7 @@ public class Player : MonoBehaviour
 
     private void TakeDamageBomb()
     {
+        explosionVFX.Play();
         isDamagedBomb = true;
         barScript.healthBar -= 0.5f;
         barScript.healthImg.fillAmount = barScript.healthBar;   
