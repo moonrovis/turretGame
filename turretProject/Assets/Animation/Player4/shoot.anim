@@ -29,7 +29,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.06666667
-        value: {x: -0.665758, y: 0.6760332, z: -0.072}
+        value: {x: -0.665758, y: 0.6760332, z: -0.153}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -48,7 +48,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: turret4/c_low/e_low/h_low
+    path: turret4/Rotate turret/c_low/e_low/h_low
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -60,7 +60,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2090332536
+      path: 1328566526
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -125,7 +125,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: turret4/c_low/e_low/h_low
+    path: turret4/Rotate turret/c_low/e_low/h_low
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -164,7 +164,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: turret4/c_low/e_low/h_low
+    path: turret4/Rotate turret/c_low/e_low/h_low
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -183,7 +183,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.06666667
-        value: -0.072
+        value: -0.153
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -203,7 +203,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: turret4/c_low/e_low/h_low
+    path: turret4/Rotate turret/c_low/e_low/h_low
     classID: 4
     script: {fileID: 0}
     flags: 0

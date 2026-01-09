@@ -38,8 +38,22 @@ public class Player : MonoBehaviour
     public GameObject abCanvas;
     public TextMeshProUGUI abTimer;
 
+    [Header("Mobile Controls")]
+    public Joystick joystick; // Пример: FloatingJoystick
+    private bool useMobileControl = false;
+    public GameObject mobileUICanvas; // 🔧 Ссылка на весь Canvas с джойстиком и кнопкой
+
+    private bool isMobileShootPressed = false;
+
+    private bool isMobile;
+
     private void Start()
     {
+        isMobile = Application.isMobilePlatform;
+        useMobileControl = isMobile;
+
+        if(mobileUICanvas != null) mobileUICanvas.SetActive(isMobile);
+
         Camera mainCam = Camera.main;
         cameraAnim = mainCam.GetComponent<Animator>();
 
@@ -60,10 +74,18 @@ public class Player : MonoBehaviour
                 RotateTurret();
             }
 
-            if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
+            bool shouldShoot = false;
+
+            if (useMobileControl)
             {
-                Shoot(); 
+                shouldShoot = isMobileShootPressed;
             }
+            else
+            {
+                shouldShoot = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
+            }
+            
+            if(shouldShoot) Shoot();
         }
 
         if (isGunSpeedActive)
@@ -77,20 +99,40 @@ public class Player : MonoBehaviour
 
     private void RotateTurret()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
-        
-        if (groundPlane.Raycast(ray, out float distance))
+        Vector3 direction = Vector3.zero;
+
+        if (useMobileControl && joystick != null)
         {
-            Vector3 direction = ray.GetPoint(distance) - turretTransform.position;
-            direction.y = 0;
-            
-            if (direction.sqrMagnitude > 0.1f)
+            // Мобильный ввод: джойстик
+            Vector2 joyInput = joystick.Direction;
+
+            if (joyInput.sqrMagnitude > 0.1f)
             {
-                float targetAngle = Quaternion.LookRotation(direction).eulerAngles.y + turretAngleOffset;
-                float smoothAngle = Mathf.MoveTowardsAngle(turretTransform.eulerAngles.y, targetAngle, rotationSpeed * 360f * Time.deltaTime);
-                turretTransform.rotation = Quaternion.Euler(turretRotatorOffset, smoothAngle, 0f);                
+                // Джойстик даёт 2D направление (x, y)
+                // Мы используем x как движение вправо/влево, y как вперёд/назад
+                direction = new Vector3(joyInput.x, 0f, joyInput.y);
             }
+        }
+        else
+        {
+            // ПК: мышь
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, transform.position);
+
+            if (groundPlane.Raycast(ray, out float distance))
+            {
+                Vector3 hitPoint = ray.GetPoint(distance);
+                direction = new Vector3(hitPoint.x, 0f, hitPoint.z) - turretTransform.position;
+            }
+        }
+
+        // Общий поворот туррели
+        if (direction.sqrMagnitude > 0.1f)
+        {
+            float targetAngle = Quaternion.LookRotation(direction).eulerAngles.y + turretAngleOffset;
+            float currentAngle = turretTransform.eulerAngles.y;
+            float smoothAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * 360f * Time.deltaTime);
+            turretTransform.rotation = Quaternion.Euler(turretRotatorOffset, smoothAngle, 0f);
         }
     }
 
@@ -181,5 +223,10 @@ public class Player : MonoBehaviour
     private void ResetDamageFlag()
     {
         isDamaged = false;
+    }
+
+    public void SetMobileShootPressed(bool pressed)
+    {
+        isMobileShootPressed = pressed;
     }
 }
