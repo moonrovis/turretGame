@@ -15,11 +15,6 @@ public class CoinManager : MonoBehaviour
         coinText.text = coin.ToString();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.O)) DeletePlayerPrefs();
-    }
-
     public void UpdateCoinText()
     {
         coin++;
@@ -32,11 +27,5 @@ public class CoinManager : MonoBehaviour
     {
         coin = PlayerPrefs.GetInt("coin", 0); // Синхронизируем с PlayerPrefs
         coinText.text = coin.ToString();
-    }
-
-    private void DeletePlayerPrefs()
-    {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
     }
 }

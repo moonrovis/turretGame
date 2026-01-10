@@ -67,10 +67,10 @@ public class SpawnManager : MonoBehaviour
                 rocket.transform.LookAt(turret.position);
             }
 
-            minSpawnInterval -= 0.05f;
-            maxSpawnInterval -= 0.05f; 
-            if(minSpawnInterval <= 0.75f) minSpawnInterval = 0.75f;
-            if(maxSpawnInterval <= 1f) maxSpawnInterval = 1f;
+            minSpawnInterval -= 0.03f;
+            maxSpawnInterval -= 0.03f; 
+            if(minSpawnInterval <= 0.6f) minSpawnInterval = 0.6f;
+            if(maxSpawnInterval <= 0.85f) maxSpawnInterval = 0.85f;
         }
     }
 

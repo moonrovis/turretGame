@@ -36,7 +36,6 @@ public class ShopManager : MonoBehaviour
     private void Update()
     {
         updateUI();
-        if(Input.GetKeyDown(KeyCode.P)) DeletePlayerPrefs();
     }
 
     public void changeNext()
@@ -122,11 +121,5 @@ public class ShopManager : MonoBehaviour
         }
 
         coinScript.UpdateShopCoinText();
-    }
-
-    private void DeletePlayerPrefs()
-    {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
     }
 }

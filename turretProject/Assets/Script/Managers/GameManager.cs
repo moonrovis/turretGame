@@ -18,11 +18,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pause();   
