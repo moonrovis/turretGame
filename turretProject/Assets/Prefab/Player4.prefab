@@ -206,7 +206,7 @@ MonoBehaviour:
   abCanvas: {fileID: 0}
   abTimer: {fileID: 0}
   joystick: {fileID: 0}
-  useMobileControl: 0
+  mobileUICanvas: {fileID: 0}
 --- !u!95 &1527892257252739363
 Animator:
   serializedVersion: 7

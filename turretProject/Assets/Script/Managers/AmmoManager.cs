@@ -1,6 +1,10 @@
+using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
+
 
 public class AmmoManager : MonoBehaviour
 {
@@ -12,9 +16,15 @@ public class AmmoManager : MonoBehaviour
 
     public TextMeshProUGUI ammoText;
     public Image reloadBar; // Ссылка на Image с типом Filled
+    public GameObject reloadBarGameObject;
 
     private void Start()
     {
+        ammoBox = PlayerPrefs.GetInt("ammoBox", ammoBox);
+        ammoCount = ammoBox;
+
+        reloadBarGameObject.SetActive(false);
+
         UpdateAmmoText();
         if (reloadBar != null)
         {
@@ -45,6 +55,8 @@ public class AmmoManager : MonoBehaviour
     {
         if (isReloading)
         {
+            reloadBarGameObject.SetActive(true);
+
             timer += Time.deltaTime;
             float fillProgress = timer / 1.6f;
 
@@ -64,6 +76,7 @@ public class AmmoManager : MonoBehaviour
     {
         ammoCount = ammoBox;
         isReloading = false;
+        reloadBarGameObject.SetActive(false);
         UpdateAmmoText();
 
         // Скрываем полосу перезарядки
@@ -73,7 +86,7 @@ public class AmmoManager : MonoBehaviour
         }
     }
 
-    private void UpdateAmmoText()
+    public void UpdateAmmoText()
     {
         ammoText.text = ammoCount.ToString() + "/" + ammoBox.ToString();
     }
@@ -81,5 +94,13 @@ public class AmmoManager : MonoBehaviour
     public void RestartAmmoText()
     {
         UpdateAmmoText();
+    }
+
+    public void AddAmmoBox(int amount)
+    {
+        ammoBox += amount;
+        PlayerPrefs.SetInt("ammoBox", ammoBox); // 🔧 Сохраняем новое значение
+        PlayerPrefs.Save();
+        UpdateAmmoText(); // обновляем текст
     }
 }

@@ -47,6 +47,15 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (gameManagerScript.isRewarded)
+        {
+            SetSpawnInterval(1f, 3f);
+            currentSpeed = 2.5f;
+        }
+    }
+
     void SpawnRocket()
     {
         if (playerScript.isAlive && !gameManagerScript.isPause)

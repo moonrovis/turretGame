@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using YG;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 public class CoinManager : MonoBehaviour
 {

@@ -1,3 +1,4 @@
+using System.Collections;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
 
     [Header("Mobile Controls")]
     public Joystick joystick; // Пример: FloatingJoystick
-    private bool useMobileControl = false;
+    public bool useMobileControl = false;
     public GameObject mobileUICanvas; // 🔧 Ссылка на весь Canvas с джойстиком и кнопкой
 
     private bool isMobileShootPressed = false;
@@ -69,11 +70,8 @@ public class Player : MonoBehaviour
     {
         if (isAlive && !gameManagerScript.isPause)
         {   
-            if (turretTransform != null)
-            {
-                RotateTurret();
-            }
-
+            RotateTurret();
+            
             bool shouldShoot = false;
 
             if (useMobileControl)
@@ -95,6 +93,12 @@ public class Player : MonoBehaviour
             int secondsLeft = Mathf.Max(Mathf.FloorToInt(timer), 0);
             abTimer.text = secondsLeft.ToString();
         }
+
+        if(gameManagerScript.isRewarded && !isAlive)
+        {
+           isAlive = true; 
+           StartCoroutine(restoreIsRewarded());
+        } 
     }
 
     private void RotateTurret()
@@ -228,5 +232,11 @@ public class Player : MonoBehaviour
     public void SetMobileShootPressed(bool pressed)
     {
         isMobileShootPressed = pressed;
+    }
+
+    IEnumerator restoreIsRewarded()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameManagerScript.isRewarded = false;
     }
 }

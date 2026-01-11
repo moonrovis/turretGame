@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using YG;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class ScoreManager : MonoBehaviour
 
         // Показываем лучший счёт при старте
         bestScoreText.text = bestScore.ToString();
+
+        YG2.SetLeaderboard("LeaderBoardYG", bestScore);
     }
 
     private void Update()

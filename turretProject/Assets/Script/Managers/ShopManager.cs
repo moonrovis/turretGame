@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 public class ShopManager : MonoBehaviour
 {

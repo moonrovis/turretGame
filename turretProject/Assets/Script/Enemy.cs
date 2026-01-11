@@ -39,6 +39,8 @@ public class Enemy : MonoBehaviour
             speed = 0f;
             rotationSpeed = 0f;
         }
+
+        if(gameManagerScript.isRewarded) Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
