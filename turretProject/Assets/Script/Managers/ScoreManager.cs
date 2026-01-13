@@ -24,6 +24,7 @@ public class ScoreManager : MonoBehaviour
         bestScoreText.text = bestScore.ToString();
 
         YG2.SetLeaderboard("LeaderBoardYG", bestScore);
+        PlayerPrefs.Save();
     }
 
     private void Update()

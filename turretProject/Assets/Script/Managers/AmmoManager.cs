@@ -30,6 +30,7 @@ public class AmmoManager : MonoBehaviour
         {
             reloadBar.gameObject.SetActive(false); // Скрыть при старте
         }
+        PlayerPrefs.Save();
     }
 
     public void ReduceAmmo()

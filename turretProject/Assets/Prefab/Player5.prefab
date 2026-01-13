@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   turretTransform: {fileID: 5480413928455598773}
   spawnBulletPos: {fileID: 4956052888440323971}
-  bulletPrefab: {fileID: 7448176018673910931, guid: dd490edeca4ec7c42baf821bf3df54e7, type: 3}
+  bulletPrefab: {fileID: 2808218852617776242, guid: 56dfe7984f7354a4aba988aaed84235d, type: 3}
   fireRate: 0.5
   rotationSpeed: 1.5
   turretAngleOffset: 180
@@ -472,6 +472,9 @@ MonoBehaviour:
   emptyAmmoSound: {fileID: 8300000, guid: ac76a9be04f17c243aaf240e0db70074, type: 3}
   abCanvas: {fileID: 0}
   abTimer: {fileID: 0}
+  joystick: {fileID: 0}
+  useMobileControl: 0
+  mobileUICanvas: {fileID: 0}
 --- !u!95 &1780235923697265767
 Animator:
   serializedVersion: 7

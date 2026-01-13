@@ -1,0 +1,29 @@
+{
+    "stringKeys": [],
+    "stringValues": [],
+    "floatKeys": [],
+    "floatValues": [],
+    "intKeys": [
+        "SelectedTurret",
+        "bestScore",
+        "coin",
+        "ammoBox",
+        "Player4"
+    ],
+    "intValues": [
+        1,
+        521,
+        274,
+        310,
+        1
+    ],
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 308
+}

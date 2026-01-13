@@ -3,7 +3,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using YG;
-using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 public class CoinManager : MonoBehaviour
 {
@@ -15,6 +14,8 @@ public class CoinManager : MonoBehaviour
     {
         coin = PlayerPrefs.GetInt("coin", 0);
         coinText.text = coin.ToString();
+
+        PlayerPrefs.Save();
     }
 
     public void UpdateCoinText()

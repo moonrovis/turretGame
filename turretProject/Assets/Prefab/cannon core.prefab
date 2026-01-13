@@ -186,6 +186,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5598652644319408065}
     m_Modifications:
+    - target: {fileID: 102423047147181627, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.9980469
+      objectReference: {fileID: 0}
+    - target: {fileID: 102423047147181627, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.41721937
+      objectReference: {fileID: 0}
+    - target: {fileID: 102423047147181627, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.0625
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104969604711230931, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.023904044
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104969604711230931, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.023904044
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104969604711230931, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.023904044
+      objectReference: {fileID: 0}
     - target: {fileID: 4104969604711230931, guid: b86932e8352217d4382b9778e64ee5e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
