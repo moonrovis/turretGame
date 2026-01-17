@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("bullet") || other.CompareTag("Player"))
+        if (other.CompareTag("bullet") || other.CompareTag("Player") || other.CompareTag("dome"))
         {
             audioSource.PlayOneShot(explosionSound[Random.Range(0, explosionSound.Length)],1f);
             Exploide();

@@ -116,6 +116,9 @@ MonoBehaviour:
   emptyAmmoSound: {fileID: 8300000, guid: ac76a9be04f17c243aaf240e0db70074, type: 3}
   abCanvas: {fileID: 0}
   abTimer: {fileID: 0}
+  joystick: {fileID: 0}
+  useMobileControl: 0
+  mobileUICanvas: {fileID: 0}
 --- !u!95 &4669076656998081658
 Animator:
   serializedVersion: 7

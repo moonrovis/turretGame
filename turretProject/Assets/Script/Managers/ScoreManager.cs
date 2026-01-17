@@ -24,7 +24,6 @@ public class ScoreManager : MonoBehaviour
         bestScoreText.text = bestScore.ToString();
 
         YG2.SetLeaderboard("LeaderBoardYG", bestScore);
-        PlayerPrefs.Save();
     }
 
     private void Update()
@@ -39,6 +38,7 @@ public class ScoreManager : MonoBehaviour
             {
                 bestScore = seconds; // Обновляем переменную
                 PlayerPrefs.SetInt("bestScore", bestScore); // Сохраняем
+                PlayerPrefs.Save();
                 bestScoreText.text = bestScore.ToString(); // Обновляем текст
             }
         }

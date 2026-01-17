@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("enemy") || other.CompareTag("bomb") || other.CompareTag("coin")
-         || other.CompareTag("gunSpeed")|| other.CompareTag("health")) Destroy(gameObject);
+         || other.CompareTag("gunSpeed") || other.CompareTag("health")
+         || other.CompareTag("shield")) Destroy(gameObject);
     }
 }

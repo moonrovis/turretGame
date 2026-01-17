@@ -10,6 +10,8 @@ TagManager:
   - bomb
   - gunSpeed
   - coin
+  - dome
+  - shield
   layers:
   - Default
   - TransparentFX

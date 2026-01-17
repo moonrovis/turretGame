@@ -52,7 +52,7 @@ public class SpawnManager : MonoBehaviour
         if (gameManagerScript.isRewarded)
         {
             SetSpawnInterval(1f, 3f);
-            currentSpeed = 2.5f;
+            currentSpeed = 4f;
         }
     }
 
