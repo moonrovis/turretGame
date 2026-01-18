@@ -7,14 +7,12 @@
         "SelectedTurret",
         "bestScore",
         "coin",
-        "ammoBox",
-        "Player4"
+        "Player2"
     ],
     "intValues": [
-        1,
-        521,
-        277,
-        310,
+        0,
+        427,
+        11,
         1
     ],
     "intExample": 5,
@@ -25,5 +23,5 @@
         false,
         false
     ],
-    "idSave": 521
+    "idSave": 1050
 }

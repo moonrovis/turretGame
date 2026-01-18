@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 public class ShopManager : MonoBehaviour
 {
@@ -24,7 +26,6 @@ public class ShopManager : MonoBehaviour
             if(turrets.price == 0) turrets.isUnlocked = true;
             else turrets.isUnlocked = PlayerPrefs.GetInt(turrets.name, 0)==0? false: true;
         }
-
 
         currentIndex = PlayerPrefs.GetInt("SelectedTurret", 0);
         foreach(GameObject turret in turretItems) turret.SetActive(false);
@@ -99,6 +100,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("coin", currentCoins - t.price);
             coinScript.UpdateShopCoinText(); // Теперь текст обновится
         }
+        
     }
 
     private void UpdateTurretUI()

@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     public Joystick joystick; // Пример: FloatingJoystick
     public bool useMobileControl = false;
     public GameObject mobileUICanvas; // 🔧 Ссылка на весь Canvas с джойстиком и кнопкой
+    public GameObject playerArrow;
 
     private bool isMobileShootPressed = false;
 
@@ -53,7 +54,11 @@ public class Player : MonoBehaviour
         isMobile = Application.isMobilePlatform;
         useMobileControl = isMobile;
 
-        if(mobileUICanvas != null) mobileUICanvas.SetActive(isMobile);
+        if(mobileUICanvas != null)
+        {
+            mobileUICanvas.SetActive(isMobile);
+            playerArrow.SetActive(isMobile);
+        } 
 
         Camera mainCam = Camera.main;
         cameraAnim = mainCam.GetComponent<Animator>();
@@ -89,9 +94,14 @@ public class Player : MonoBehaviour
         if (isGunSpeedActive)
         {
             abCanvas.SetActive(true);
-            timer -= Time.deltaTime;
-            int secondsLeft = Mathf.Max(Mathf.FloorToInt(timer), 0);
-            abTimer.text = secondsLeft.ToString();
+            if (!gameManagerScript.isPause)
+            {
+                timer -= Time.deltaTime;
+                int secondsLeft = Mathf.Max(Mathf.FloorToInt(timer), 0);
+                abTimer.text = secondsLeft.ToString();
+                if(timer <= 0) DeactivateGunSpeed();
+            }
+            
         }
 
         if(gameManagerScript.isRewarded && !isAlive)
@@ -99,6 +109,20 @@ public class Player : MonoBehaviour
            isAlive = true; 
            StartCoroutine(restoreIsRewarded());
         } 
+    }
+
+    public void GunSpeed()
+    {
+        fireRate = 0.25f;
+        isGunSpeedActive = true;
+    }
+
+    private void DeactivateGunSpeed()
+    {
+        fireRate = 0.5f;
+        isGunSpeedActive = false;
+        abCanvas.SetActive(false);
+        timer = 11f;
     }
 
     private void RotateTurret()
@@ -164,22 +188,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void GunSpeed()
-    {
-        fireRate = 0.25f;
-        isGunSpeedActive = true;
-
-        CancelInvoke(nameof(DeactivateGunSpeed));
-        Invoke(nameof(DeactivateGunSpeed), 10f);
-
-    }
-    private void DeactivateGunSpeed()
-    {
-        fireRate = 0.5f;
-        isGunSpeedActive = false;
-        abCanvas.SetActive(false);
-        timer = 11f;
-    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -320,7 +320,7 @@ MonoBehaviour:
     isUnlocked: 0
   - name: Player7
     index: 6
-    price: 55
+    price: 50
     priceText: {fileID: 1629280878}
     isUnlocked: 0
   buyButton: {fileID: 185994261}
@@ -4659,7 +4659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &289166371761212369
 GameObject:
   m_ObjectHideFlags: 0
@@ -5379,7 +5379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &848046561810988758
 Transform:
   m_ObjectHideFlags: 0
@@ -6767,7 +6767,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2187761705369970561
 Transform:
   m_ObjectHideFlags: 0
@@ -14689,7 +14689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5038022228052416751
 Transform:
   m_ObjectHideFlags: 0
@@ -15659,7 +15659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5839122021552328153
 Transform:
   m_ObjectHideFlags: 0
@@ -16103,7 +16103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &6246836107516930733
 GameObject:
   m_ObjectHideFlags: 0

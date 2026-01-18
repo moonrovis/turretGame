@@ -1,3 +1,3 @@
-﻿Build path: C:/Users/Герман/OneDrive/Desktop/betaBuild4
-Build number: 3
+﻿Build path: C:/Users/Герман/OneDrive/Desktop/betaBuild5
+Build number: 4
 PluginYG version: 2.007

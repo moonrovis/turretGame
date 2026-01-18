@@ -8,10 +8,13 @@ public class domeManager : MonoBehaviour
     public GameObject dome;
     public TextMeshProUGUI timerText;
 
+    private GameManager gameManagerScript;
+
     public ParticleSystem spawnParticle;
 
     private void Start()
     {
+        gameManagerScript = FindAnyObjectByType<GameManager>();
         dome.SetActive(false);
         timerText.gameObject.SetActive(false);
     }
@@ -38,19 +41,23 @@ public class domeManager : MonoBehaviour
 
         while (timeLeft > 0)
         {
-            timeLeft -= Time.deltaTime;
-            int seconds = Mathf.CeilToInt(timeLeft); // Округляем вверх: 5.1 → 6, 5.9 → 6, чтобы 1 появлялось до последней секунды
-            if (timerText != null)
+            // Проверяем, что игра не на паузе
+            if (!gameManagerScript.isPause)
             {
-                timerText.text = seconds.ToString();
+                timeLeft -= Time.deltaTime;
+                int seconds = Mathf.CeilToInt(timeLeft);
+                if (timerText != null)
+                {
+                    timerText.text = seconds.ToString();
+                }
             }
-            yield return null; // Каждый кадр
+            yield return null; // Ждём следующего кадра
         }
 
         dome.SetActive(false);
         if (timerText != null)
         {
-            timerText.gameObject.SetActive(false); // Скрыть текст после окончания
+            timerText.gameObject.SetActive(false);
         }
     }
 }
