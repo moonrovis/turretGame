@@ -7,12 +7,28 @@
         "SelectedTurret",
         "bestScore",
         "coin",
-        "Player2"
+        "Player2",
+        "ammoBox",
+        "killCount",
+        "achievement_1000kills_rewarded",
+        "Player3",
+        "Player4",
+        "Player5",
+        "Player6",
+        "Player7"
     ],
     "intValues": [
         0,
-        427,
-        11,
+        529,
+        18,
+        1,
+        510,
+        19,
+        1,
+        1,
+        1,
+        1,
+        1,
         1
     ],
     "intExample": 5,
@@ -23,5 +39,5 @@
         false,
         false
     ],
-    "idSave": 1050
+    "idSave": 1503
 }

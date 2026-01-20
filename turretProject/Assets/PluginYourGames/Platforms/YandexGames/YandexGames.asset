@@ -19,6 +19,8 @@ MonoBehaviour:
     postponeCallByFail: 0
     setLanguageMod: 1
     skipInterAdvAfterReward: 0
+    saveLocal: 0
+    saveCloud: 1
     autoPauseGame: 1
     selectWebGLTemplate: 1
     runInBackground: 0

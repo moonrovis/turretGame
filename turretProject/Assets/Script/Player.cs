@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
     private bool isMobileShootPressed = false;
 
-    private bool isMobile;
+    public bool isMobile;
 
     private void Start()
     {

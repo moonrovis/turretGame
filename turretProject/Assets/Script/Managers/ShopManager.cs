@@ -99,6 +99,7 @@ public class ShopManager : MonoBehaviour
 
             PlayerPrefs.SetInt("coin", currentCoins - t.price);
             coinScript.UpdateShopCoinText(); // Теперь текст обновится
+            PlayerPrefs.Save();
         }
         
     }
@@ -123,5 +124,6 @@ public class ShopManager : MonoBehaviour
         }
 
         coinScript.UpdateShopCoinText();
+        PlayerPrefs.Save();
     }
 }

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Player playerScript;
 
     public ParticleSystem explosionVFX;
+    public ParticleSystem zapExp;
     public ParticleSystem fireEngine;
 
     public GameObject rocket;
@@ -45,10 +46,21 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("bullet") || other.CompareTag("Player") || other.CompareTag("dome"))
+        if (other.CompareTag("bullet") || other.CompareTag("Player"))
         {
             audioSource.PlayOneShot(explosionSound[Random.Range(0, explosionSound.Length)],1f);
             Exploide();
+        }
+
+        if (other.CompareTag("dome"))
+        {
+            audioSource.PlayOneShot(explosionSound[Random.Range(0, explosionSound.Length)],1f);
+
+            cap.enabled = false;
+            fireEngine.Stop();
+            zapExp.Play();
+            rocket.SetActive(false);
+            Destroy(gameObject, 1f);
         }
     }
 

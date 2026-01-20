@@ -5204,7 +5204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -77.4, y: -25}
+  m_AnchoredPosition: {x: -77.4, y: -78.000015}
   m_SizeDelta: {x: 357.6, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1690293231
@@ -5236,8 +5236,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280449023
+  m_fontColor: {r: 1, g: 0.46666667, b: 0.13333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5754,7 +5754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 200.8, y: -25}
+  m_AnchoredPosition: {x: 200.8, y: -78}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1804987526
@@ -5786,8 +5786,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280449023
+  m_fontColor: {r: 1, g: 0.46666667, b: 0.13333334, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13148,6 +13148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player7
       objectReference: {fileID: 0}
+    - target: {fileID: 5005774029227310989, guid: 7680e223e50e62044b46a24ea834e7ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7224839525062336205, guid: 7680e223e50e62044b46a24ea834e7ff, type: 3}
       propertyPath: abTimer
       value: 
@@ -18426,6 +18430,7 @@ MonoBehaviour:
   speed: 0
   rotationSpeed: 0
   explosionVFX: {fileID: 1661279544}
+  zapExp: {fileID: 0}
   fireEngine: {fileID: 1492743899}
   rocket: {fileID: 318275719}
   explosionSound: []
@@ -23808,6 +23813,7 @@ MonoBehaviour:
   speed: 0
   rotationSpeed: 0
   explosionVFX: {fileID: 5512477168758682134}
+  zapExp: {fileID: 0}
   fireEngine: {fileID: 183230121994614215}
   rocket: {fileID: 688015533}
   explosionSound: []

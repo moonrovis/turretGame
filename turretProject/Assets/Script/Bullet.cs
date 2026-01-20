@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
     public float speed = 50f;
@@ -19,5 +20,13 @@ public class Bullet : MonoBehaviour
         if(other.CompareTag("enemy") || other.CompareTag("bomb") || other.CompareTag("coin")
          || other.CompareTag("gunSpeed") || other.CompareTag("health")
          || other.CompareTag("shield")) Destroy(gameObject);
+
+        // if (other.CompareTag("enemy") || other.CompareTag("bomb"))
+        // {
+        //     int killCount = PlayerPrefs.GetInt("killCount");
+        //     PlayerPrefs.SetInt("killCount", killCount + 1);
+        //     PlayerPrefs.Save();
+        //     Destroy(gameObject);
+        // }
     }
 }

@@ -100,8 +100,8 @@ GameObject:
   - component: {fileID: 8717334640129046522}
   - component: {fileID: 8128687419945926908}
   - component: {fileID: 2724220087200795224}
-  - component: {fileID: 6660393702855787545}
   - component: {fileID: 1527892257252739363}
+  - component: {fileID: 6660393702855787545}
   - component: {fileID: -361639193576016996}
   m_Layer: 0
   m_Name: Player2
@@ -175,6 +175,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6359818, y: 1.501375, z: 1.0938286}
   m_Center: {x: -0.122990966, y: 1.6790999, z: 0.13691442}
+--- !u!95 &1527892257252739363
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844923528023397067}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df1c5577bd27a954b91f47259651ae35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6660393702855787545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,28 +231,6 @@ MonoBehaviour:
   useMobileControl: 0
   mobileUICanvas: {fileID: 0}
   playerArrow: {fileID: 7311532792623708183}
---- !u!95 &1527892257252739363
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 844923528023397067}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: df1c5577bd27a954b91f47259651ae35, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!82 &-361639193576016996
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1174,7 +1174,6 @@ Transform:
   - {fileID: 1971963142046706069}
   - {fileID: 4855579954767165362}
   - {fileID: 7032507164102735691}
-  - {fileID: 5483339119344199940}
   m_Father: {fileID: 8717334640129046522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5773930577807709039
@@ -1593,11 +1592,11 @@ Transform:
   m_GameObject: {fileID: 7311532792623708183}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0.8493333, z: 2.548}
-  m_LocalScale: {x: 0.28365332, y: 0.28365332, z: 0.28365332}
+  m_LocalPosition: {x: 0, y: 1.2739999, z: 3.822}
+  m_LocalScale: {x: 0.42547998, y: 0.42547998, z: 0.42547998}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4955923571898658219}
+  m_Father: {fileID: 7032507164102735691}
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 90}
 --- !u!212 &6660248644493495104
 SpriteRenderer:
@@ -1776,6 +1775,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3188303459699075579}
+  - {fileID: 5483339119344199940}
   m_Father: {fileID: 4955923571898658219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8951072722774171223

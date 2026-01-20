@@ -1,4 +1,3 @@
-using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -99,8 +98,8 @@ public class AmmoManager : MonoBehaviour
     public void AddAmmoBox(int amount)
     {
         ammoBox += amount;
-        // PlayerPrefs.SetInt("ammoBox", ammoBox); // 🔧 Сохраняем новое значение
-        // PlayerPrefs.Save();
+        PlayerPrefs.SetInt("ammoBox", ammoBox); // 🔧 Сохраняем новое значение
+        PlayerPrefs.Save();
         UpdateAmmoText(); // обновляем текст
     }
 }

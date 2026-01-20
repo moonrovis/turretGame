@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using YG;
 using PlayerPrefs = RedefineYG.PlayerPrefs;
@@ -86,10 +85,9 @@ public class GameManager : MonoBehaviour
         isPause = false;
         pauseCanvas.SetActive(false);
 
-        if (playerScript.useMobileControl)
-        {
-            mobileCanvas.SetActive(true);
-        }
+
+        mobileCanvas.SetActive(playerScript.isMobile);
+        
     }
 
     public void OnPlayerDeath()
