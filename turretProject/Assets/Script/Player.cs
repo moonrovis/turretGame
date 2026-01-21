@@ -51,13 +51,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        isMobile = Application.isMobilePlatform;
-        useMobileControl = isMobile;
-
+        useMobileControl = Application.isMobilePlatform;
+        
         if(mobileUICanvas != null)
         {
-            mobileUICanvas.SetActive(isMobile);
-            playerArrow.SetActive(isMobile);
+            mobileUICanvas.SetActive(useMobileControl);
+            playerArrow.SetActive(useMobileControl);
         } 
 
         Camera mainCam = Camera.main;

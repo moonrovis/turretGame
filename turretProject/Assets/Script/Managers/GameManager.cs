@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseCanvas;
     public GameObject mobileCanvas;
 
-    private string rewardId = "live";
+    public string rewardID;
 
     public bool isPause = false;
     public bool isRewarded = false;
@@ -42,14 +42,16 @@ public class GameManager : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= 88)
             {
+                pauseCanvas.SetActive(true);
+                isPause = true;
+                mobileCanvas.SetActive(false);
+
                 ad.SetActive(true);
                 adTimer.text = 2.ToString();
             }
             if (timer >= 89) adTimer.text = 1.ToString();
             if (timer >= 90)
             {
-                pauseCanvas.SetActive(true);
-                isPause = true;
                 YG2.InterstitialAdvShow();
                 timer = 0;
                 ad.SetActive(false);
@@ -84,39 +86,40 @@ public class GameManager : MonoBehaviour
     {
         isPause = false;
         pauseCanvas.SetActive(false);
-
-
-        mobileCanvas.SetActive(playerScript.isMobile);
-        
+        mobileCanvas.SetActive(Application.isMobilePlatform);       
     }
 
     public void OnPlayerDeath()
     {
         deathCanvas.SetActive(true);
 
-        if (playerScript.useMobileControl)
-        {
-            mobileCanvas.SetActive(false);
-        }
+        mobileCanvas.SetActive(false);       
     }
 
     public void continueReward()
     {
-        YG2.RewardedAdvShow(rewardId,() =>
-        {
-            isRewarded = true;
-            deathCanvas.SetActive(false);
-
-            barScript.healthBar = 1f;
-            barScript.healthImg.fillAmount = barScript.healthBar;   
-        });
+        string id = "alive";
+        YG2.RewardedAdvShow(id, RewardContinue);
     }
 
     public void raiseAmmoReward()
     {
-        YG2.RewardedAdvShow(rewardId,() =>
-        {
-            ammoManagerScript.AddAmmoBox(20);
-        });
+        string id = "ammo";
+        YG2.RewardedAdvShow(id, RewardAmmo);
+    }
+
+    public void RewardContinue()
+    {
+        isRewarded = true;
+        deathCanvas.SetActive(false);
+
+        barScript.healthBar = 1f;
+        barScript.healthImg.fillAmount = barScript.healthBar;   
+        mobileCanvas.SetActive(Application.isMobilePlatform);
+    }
+
+    public void RewardAmmo()
+    {
+        ammoManagerScript.AddAmmoBox(20);
     }
 }
